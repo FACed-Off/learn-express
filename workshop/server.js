@@ -6,4 +6,18 @@ const server = express();
 
 let posts = [{ author: "oli", title: "hello", content: "lorem ipsum etc" }];
 
+server.get("/", (req, res) => {
+  const html = templates.home();
+  res.send(html);
+});
+
+server.get("/new-post", (req, res) => {
+  res.send(templates.newPost());
+});
+
+server.get("/posts", (req, res) => {
+  res.send(templates.allPosts(posts));
+});
+
 server.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
+//git commit -m "serving pages"
