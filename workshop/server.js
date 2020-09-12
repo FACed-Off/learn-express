@@ -2,6 +2,7 @@ const express = require("express");
 const PORT = process.env.PORT || 3000;
 const templates = require("./templates");
 const { reset } = require("nodemon");
+const cookieParser = require("cookie-parser");
 
 const server = express();
 
@@ -41,6 +42,30 @@ server.get("/delete-post/:title", (req, res) => {
 });
 //deletes the post and redirects back to posts pagr
 
+server.get("/log-in", (req, res) => {
+  const html = templates.logIn();
+  res.send(html);
+});
+
+server.post("/log-in", (req, res) => {
+  const email = req.body.email;
+  res.cookie("email", email, { maxAge: 600000 });
+  res.redirect("/");
+});
+
+server.get("/", (req, res) => {
+  const email = req.cookies.email;
+  const html = templates.home(email);
+  res.send(html);
+});
+
+server.get("/log-out", (req, res) => {
+  res.clearCookie("email");
+  res.redirect("/");
+});
+
 server.use(express.static("workshop/public"));
+server.use(express.urlencoded());
+server.use(cookieParser());
 
 server.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
