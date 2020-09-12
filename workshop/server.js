@@ -39,4 +39,8 @@ server.get("/delete-post/:title", (req, res) => {
   posts = posts.filter((p) => p.title !== req.params.title);
   res.redirect("/posts");
 });
+//deletes the post and redirects back to posts pagr
+
+server.use(express.static("workshop/public"));
+
 server.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
