@@ -47,16 +47,15 @@ server.get("/log-in", (req, res) => {
   res.send(html);
 });
 
+server.get("/log-in", (req, res) => {
+  const html = templates.logIn();
+  res.send(html);
+});
+
 server.post("/log-in", (req, res) => {
   const email = req.body.email;
   res.cookie("email", email, { maxAge: 600000 });
   res.redirect("/");
-});
-
-server.get("/", (req, res) => {
-  const email = req.cookies.email;
-  const html = templates.home(email);
-  res.send(html);
 });
 
 server.get("/log-out", (req, res) => {

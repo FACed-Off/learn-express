@@ -5,7 +5,8 @@
   "main": "workshop/server.js",
   "private": true,
   "scripts": {
-    "dev": "nodemon workshop/server.js"
+    "dev": "nodemon workshop/server.js",
+    "solution": "nodemon solution/server.js"
   },
   "keywords": [],
   "author": "Oliver Phillips <hello@oliverjam.es> (https://oliverjam.es/)",
