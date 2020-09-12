@@ -1,6 +1,7 @@
 const express = require("express");
 const PORT = process.env.PORT || 3000;
 const templates = require("./templates");
+const { reset } = require("nodemon");
 
 const server = express();
 
@@ -21,8 +22,21 @@ server.get("/posts", (req, res) => {
 
 server.post("/new-post", express.urlencoded(), (req, res) => {
   const newPost = req.body;
-  console.log(newPost);
+  //console.log(newPost);
   posts.push(newPost);
+  res.redirect("/posts");
+});
+
+server.get("/posts/:title", (req, res) => {
+  // console.log(req.params.title);
+  const post = posts.find((p) => p.title === req.params.title);
+  const html = templates.post(posts);
+  res.send(html);
+});
+//sends the title in the url
+
+server.get("/delete-post/:title", (req, res) => {
+  posts = posts.filter((p) => p.title !== req.params.title);
   res.redirect("/posts");
 });
 server.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
