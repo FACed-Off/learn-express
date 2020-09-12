@@ -19,5 +19,10 @@ server.get("/posts", (req, res) => {
   res.send(templates.allPosts(posts));
 });
 
+server.post("/new-post", express.urlencoded(), (req, res) => {
+  const newPost = req.body;
+  console.log(newPost);
+  posts.push(newPost);
+  res.redirect("/posts");
+});
 server.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
-//git commit -m "serving pages"
